@@ -87,11 +87,11 @@ def cfgmenu(ball):
     menu.configure(background="black")
 
     lang=tk.StringVar(menu)
-    lang.set(cfg_lang.name)
+    lang.set(cfg_lang.value[1])
     spd=tk.StringVar(menu)
-    spd.set(ball.speed)
+    spd.set(cfg_lang.value[3])
     bounce=tk.StringVar(menu)
-    bounce.set(randBounce)
+    bounce.set(cfg_lang.value[4])
     
     welcome= tk.Label(menu,bg='black', fg='white', font=('Times New Roman',10), text=cfg_lang.value[0])
     welcome.pack(padx=50, pady=10,)
