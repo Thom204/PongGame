@@ -7,18 +7,41 @@ from ball import ball
 from bar import bar
 from LangCfg import LangCfg
 
-def isColliding(ball, bar):
-    if(ball.posX >= bar.getX() and ball.posX <= (bar.getX() + 10) and ball.posY >= bar.getY() and ball.posY <= (bar.getY() + 100)):
-        return True
+def isXColliding(ball, bar):
+    if (cos(ball.angle) > 0):
+        #moving to the rigth
+        if(ball.posX+10 == bar.getX() and ball.posY >= bar.getY() and ball.posY <= (bar.getY() + 100)):
+            print(ball.posX, " : ", bar.getX())
+            return True
+        else:
+            return False
     else:
-        return False
+        if(ball.posX == (bar.getX() + 10) and ball.posY >= bar.getY() and ball.posY <= (bar.getY() + 100)):
+            print(ball.posX, " : ", bar.getX())
+            return True
+        else:
+            return False
+        
+def isYColliding(ball, bar):
+    if(sin(ball.angle)>0):
+        #moving down
+        if(ball.posY+10 == bar.getY() and ball.posX >= bar.getX() and ball.posX <= bar.getX() + 10):
+            print("a")
+            return True
+        else:
+            return False
+    else:
+        if(ball.posY == bar.getY() + 100 and  ball.posX >= bar.getX() and ball.posX <= bar.getX() + 10):
+            return True
+        else:
+            return False
     
 def move(ball, elements):
     label.grid_remove()
     isPause=False
     while not isPause:
-        ball.posX+= int(2*cos(ball.angle))
-        ball.posY+= int(2*sin(ball.angle))
+        ball.posX+= round(2*cos(ball.angle), 0)
+        ball.posY+= round(2*sin(ball.angle), 0)
 
         if ball.posX>700:
             ball.bounceX()
@@ -41,8 +64,10 @@ def move(ball, elements):
             continue
 
         for bar in elements:   
-            if isColliding(ball, bar):
+            if isXColliding(ball, bar):
                 ball.bounceX()
+            if isYColliding(ball, bar):
+                ball.bounceY()
             
         ball.place(x=ball.posX, y=ball.posY)
         sleep(0.0005*ball.speed)   
@@ -112,9 +137,9 @@ root.configure(background="black")
 l= readlang()
 cfg_lang= l[1]
 language= l[0]
-ballSpeed= 4
+ballSpeed= 6
 randBounce= False
-initAngle= pi/randint(3,6)
+initAngle= pi/4
 isPause=True
 
 label= tk.Label(root, bg= 'black', fg= 'white', font= ('Times New Roman',12, 'bold'), text= language.value, justify= 'center')
@@ -125,6 +150,15 @@ bluebar.place(x=50,y=50, height=100, width=10)
 
 redbar= bar(root, bg="red")
 redbar.place(x=650, y= 50, height=100, width=10)
+
+r1_stop= bar(root, bg="white")
+r1_stop.place(x=690, y=0, height=100, width=10)
+r2_stop= bar(root, bg="white")
+r2_stop.place(x=690, y=300, height=100, width=10)
+l1_stop= bar(root, bg="white")
+l1_stop.place(x=0, y=0, height=100, width=10)
+l2_stop= bar(root, bg="white")
+l2_stop.place(x=0, y=300, height=100, width=10)
 
 bluescore= tk.Label(root, bg='black', fg='white', font=('Times New Roman',15), text= bluebar.points)
 bluescore.place(x=25, y=10)
