@@ -11,13 +11,13 @@ def isXColliding(ball, bar):
     if (cos(ball.angle) > 0):
         #moving to the rigth
         if(ball.posX+10 == bar.getX() and ball.posY >= bar.getY() and ball.posY <= (bar.getY() + 100)):
-            print(ball.posX, " : ", bar.getX())
+            #print(ball.posX, " : ", bar.getX())
             return True
         else:
             return False
     else:
         if(ball.posX == (bar.getX() + 10) and ball.posY >= bar.getY() and ball.posY <= (bar.getY() + 100)):
-            print(ball.posX, " : ", bar.getX())
+            #print(ball.posX, " : ", bar.getX())
             return True
         else:
             return False
@@ -26,7 +26,7 @@ def isYColliding(ball, bar):
     if(sin(ball.angle)>0):
         #moving down
         if(ball.posY+10 == bar.getY() and ball.posX >= bar.getX() and ball.posX <= bar.getX() + 10):
-            print("a")
+            #print("a")
             return True
         else:
             return False
